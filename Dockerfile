@@ -21,4 +21,4 @@ EXPOSE 8080
 RUN ls -lh /app/model || echo "Model directory is empty!"
 
 # Run FastAPI app
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080} --proxy-headers"]
