@@ -32,6 +32,8 @@ jobs:
         run: |
           IMAGE_URI="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
           echo "Built and pushed Docker image: $IMAGE_URI"
+        env:
+          IMAGE_URI: "${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
 
   #     - name: Build and Push Docker Image
   #       id: build-image
