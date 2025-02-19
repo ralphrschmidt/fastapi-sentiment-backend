@@ -53,7 +53,6 @@ app.add_middleware(
 )
 
 
-
 @app.get("/")
 def home():
     return {"message": "FastAPI on AWS Lambda"}
