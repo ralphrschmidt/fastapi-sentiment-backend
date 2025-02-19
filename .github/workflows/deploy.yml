@@ -30,9 +30,10 @@ jobs:
 
       - name: Print Image URI for Debugging
         run: |
-          echo "Built and pushed Docker image: ${IMAGE_URI}"
+          echo "Built and pushed Docker image: ${IMAGE_URI:0:10}...${IMAGE_URI: -10}"
         env:
           IMAGE_URI: "${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
+
   #     - name: Build and Push Docker Image
   #       id: build-image
   #       run: |
