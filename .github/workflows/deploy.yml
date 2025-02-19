@@ -34,13 +34,13 @@ jobs:
         env:
           IMAGE_URI: "${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
 
-  #     - name: Build and Push Docker Image
-  #       id: build-image
-  #       run: |
-  #         IMAGE_URI="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
-  #         docker build -t $IMAGE_URI .
-  #         docker push $IMAGE_URI
-  #         echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT  # Pass image URI to next job
+      - name: Build and Push Docker Image
+        id: build-image
+        run: |
+          IMAGE_URI="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
+          docker build -t $IMAGE_URI .
+          docker push $IMAGE_URI
+          echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT  # Pass image URI to next job
 
   # deploy:
   #   runs-on: ubuntu-latest
