@@ -8,13 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      # Make sure the step ID matches below
-      image: ${{ steps.build-image.outputs.image }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
@@ -31,13 +30,11 @@ jobs:
 
       - name: Print Image URI for Debugging
         run: |
-          echo "Built and pushed Docker image: ${IMAGE_URI:0:10}...${IMAGE_URI: -10}"
-        env:
-          IMAGE_URI: "${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
+          IMAGE_URI="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
+          echo "Built and pushed Docker image: $IMAGE_URI"
 
 
       - name: Build and Push Docker Image
-        id: build-image
         run: |
           IMAGE_URI="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/fastapi-backend:latest"
           echo "Building image: $IMAGE_URI"
@@ -46,7 +43,6 @@ jobs:
           docker push "$IMAGE_URI"
           
           # Write step output for next job
-          echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,9 +60,6 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Debug - Show Image
-        run: |
-          echo "Deploying image: ${{ needs.build.outputs.image }}"
 
       - name: Deploy to Cloud Run
         run: |
@@ -77,5 +70,5 @@ jobs:
               --platform managed \
               --region ${{ secrets.GCP_REGION }} \
               --allow-unauthenticated \
-              --memory 2Gi \
+              --memory 4Gi \
               --set-env-vars ENV=development

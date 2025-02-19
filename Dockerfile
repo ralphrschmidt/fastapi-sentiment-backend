@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir fastapi uvicorn transformers torch==2.0.1 --extra
 EXPOSE 8080
 
 # Debug: List contents of model directory
-RUN ls -lh /app/path_to_model || echo "Model directory is empty!"
+RUN ls -lh /app/model || echo "Model directory is empty!"
 
 # Run FastAPI app
 CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
