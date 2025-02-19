@@ -58,7 +58,8 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Debug - Show Image
-        run: echo "Deploying image: ${{ needs.build.outputs.image }}"
+        run: |
+          echo "Deploying image: ${{ needs.build.outputs.image }}"
 
       - name: Deploy to Cloud Run
         run: |
