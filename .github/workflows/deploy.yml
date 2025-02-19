@@ -51,6 +51,7 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
+          create_credentials_file: false
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -63,6 +64,6 @@ jobs:
             --image ${{ needs.build.outputs.image }} \
             --platform managed \
             --region ${{ secrets.GCP_REGION }} \
-            --allow-unauthenticated
-            --memory 2Gi
+            --allow-unauthenticated \
+            --memory 2Gi \
             --set-env-vars ENV=development
