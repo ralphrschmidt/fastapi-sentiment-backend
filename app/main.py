@@ -12,7 +12,7 @@ app = FastAPI()
 # 🔹 Detect the environment (default to "development" if not set)
 ENV = os.getenv("ENV", "development")  # "development" or "production"
 LOCALHOST_ORIGIN = os.getenv("LOCALHOST_ORIGIN", "http://localhost:8000")
-REMOTEHOST_ORIGIN = os.getenv("REMOTEHOST_ORIGIN", "https://your-frontend.github.io")
+REMOTEHOST_ORIGIN = os.getenv("REMOTEHOST_ORIGIN", "https://ralphrschmidt.github.io/fastapi-sentiment-frontend/")
 
 # 🔹 Allow different CORS origins based on environment
 #   If your website wants to fetch something from an api endpoint in a different

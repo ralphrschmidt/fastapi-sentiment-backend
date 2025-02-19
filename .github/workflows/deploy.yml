@@ -65,4 +65,4 @@ jobs:
             --region ${{ secrets.GCP_REGION }} \
             --allow-unauthenticated
             --memory 2Gi
-            --set-env-vars ENV=production
+            --set-env-vars ENV=development
